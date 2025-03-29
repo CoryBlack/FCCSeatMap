@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive Seating Map</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    /* Toggle button styling */
+    #toggle-map-btn {
+      display: block;
+      margin: 0 auto 10px auto;
+      padding: 10px 15px;
+      background-color: #1e88e5;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    /* Flex container for map and seat info */
+    .content-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    /* Map container styling */
+    .map-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background: #fff;
+      flex: 1 1 auto;
+    }
+    /* Responsive seating map image */
+    #seating-map {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* SVG overlay container for highlighting */
+    #highlight-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    /* Seat info container styling */
+    #seat-info {
+      flex: 0 0 300px;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-sizing: border-box;
+      min-height: 300px;
+      text-align: center;
+    }
+    #seat-info img {
+      max-width: 100%;
+      display: block;
+      margin: 0 auto 10px auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive Seating Map</h1>
+  <!-- Toggle button to show/hide the entire content area -->
+  <button id="toggle-map-btn">Hide Seating Map</button>
+  
+  <!-- Content container for map and seat info -->
+  <div class="content-container" id="content-container">
+    <div class="map-container" id="map-container">
+      <!-- Seating map image using the provided filename -->
+      <img src="2025FCCSeatingMap.jpg" usemap="#image-map" id="seating-map" alt="Seating Map">
+      <div id="highlight-container"></div>
+    </div>
+    <div id="seat-info">
+      <!-- Default seat info when no area is hovered -->
+      <img src="AerialTent.jpg" alt="Default Seating">
+      <strong>Seating Overview</strong>
+    </div>
+  </div>
+  
+  <!-- Image map definitions -->
+  <map name="image-map">
+        <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="296,65,523,66,524,99,297,98" shape="poly">
+        <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="255,731,239,757,274,780,289,751" shape="poly">
+        <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="294,755,280,782,317,801,329,771" shape="poly">
+        <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="338,771,326,802,370,813,377,782" shape="poly">
+        <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="573,724,542,748,559,778,596,752" shape="poly">
+        <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="538,749,503,763,512,796,554,780" shape="poly">
+        <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="493,763,456,773,458,811,506,799" shape="poly">
+        <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="670,626,651,657,679,680,703,640" shape="poly">
+        <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="160,630,131,647,156,683,180,662" shape="poly">
+        <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="533,12,534,47,836,49,836,12" shape="poly">
+        <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="672,342,692,385,721,371,704,325" shape="poly">
+        <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="696,386,705,431,737,425,727,374" shape="poly">
+        <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="708,437,709,481,740,484,740,431" shape="poly">
+        <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="710,486,704,531,733,539,743,488" shape="poly">
+        <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="706,537,694,585,726,592,736,545" shape="poly">
+        <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="697,586,675,621,705,637,725,594" shape="poly">
+        <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="129,329,158,345,142,390,112,376" shape="poly">
+        <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="108,379,137,393,126,434,97,428" shape="poly">
+        <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="94,435,94,487,123,487,123,440" shape="poly">
+        <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="122,490,92,491,99,543,126,536" shape="poly">
+        <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="96,549,109,597,139,582,127,541" shape="poly">
+        <area target="" alt="High Top Table For 4" title="High Top Table For 4" href="" coords="109,600,130,644,159,628,137,586" shape="poly">
+        <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="166,353,265,352,269,394,166,394" shape="poly">
+        <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="178,389,288,398,286,443,178,429" shape="poly">
+        <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="565,345,664,344,664,386,564,389" shape="poly">
+        <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="542,396,546,440,657,424,653,386" shape="poly">
+        <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="555,558,553,657,658,630,650,542" shape="poly">
+        <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="275,561,182,547,176,634,281,659" shape="poly">
+        <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="208,653,217,702,261,693,253,649" shape="poly">
+        <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="297,665,309,709,269,718,256,678" shape="poly">
+        <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="533,663,525,705,570,711,573,670" shape="poly">
+        <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="623,653,612,698,570,686,580,645" shape="poly">
+        <area target="" alt="Canopy Table For 4" title="Canopy Table For 4" href="" coords="247,7,525,6,525,58,247,58" shape="poly">
+        <area target="" alt="VIP Table For 4" title="VIP Table For 4" href="" coords="15,8,244,8,244,58,15,56" shape="poly">
+        <area target="" alt="VIP Table For 4" title="VIP Table For 4" href="" coords="296,409,299,500,345,500,344,408" shape="poly">
+        <area target="" alt="VIP Table For 4" title="VIP Table For 4" href="" coords="487,404,487,497,536,498,537,404" shape="poly">
+        <area target="" alt="VIP Table For 4" title="VIP Table For 4" href="" coords="318,727,358,709,339,672,310,689" shape="poly">
+        <area target="" alt="VIP Table For 4" title="VIP Table For 4" href="" coords="342,626,345,668,303,671,298,636" shape="poly">
+        <area target="" alt="VIP Table For 4" title="VIP Table For 4" href="" coords="492,623,535,630,530,665,489,667" shape="poly">
+        <area target="" alt="VIP Table For 4" title="VIP Table For 4" href="" coords="491,667,478,702,518,723,528,677" shape="poly">
+        <area target="" alt="VIP High Top For 2" title="VIP High Top For 2" href="" coords="278,318,276,387,316,388,318,319" shape="poly">
+        <area target="" alt="VIP High Top For 2" title="VIP High Top For 2" href="" coords="515,318,518,386,555,385,551,317" shape="poly">
+        <area target="" alt="VIP High Top For 2" title="VIP High Top For 2" href="" coords="15,63,266,64,265,95,14,93" shape="poly">
+        <area target="" alt="VIP Bench For 2" title="VIP Bench For 2" href="" coords="26,98,256,100,255,133,27,131" shape="poly">
+        <area target="" alt="VIP Bench For 2" title="VIP Bench For 2" href="" coords="289,512,298,633,336,625,329,513" shape="poly">
+        <area target="" alt="VIP Bench For 2" title="VIP Bench For 2" href="" coords="510,508,500,622,535,627,540,508" shape="poly">
+        <area target="" alt="Garden Bench For 2" title="Garden Bench For 2" href="" coords="268,102,543,103,543,130,269,129" shape="poly">
+        <area target="" alt="Garden Bench For 2" title="Garden Bench For 2" href="" coords="546,447,549,556,650,539,646,454" shape="poly">
+        <area target="" alt="Garden Bench For 2" title="Garden Bench For 2" href="" coords="287,447,187,458,187,545,286,558" shape="poly">
+        <area target="" alt="Single Stool" title="Single Stool" href="" coords="620,94,824,95,823,128,620,127" shape="poly">
+        <area target="" alt="Single Stool" title="Single Stool" href="" coords="644,298,674,279,700,320,669,339" shape="poly">
+        <area target="" alt="Single Stool" title="Single Stool" href="" coords="596,301,623,284,646,329,618,343" shape="poly">
+        <area target="" alt="Single Stool" title="Single Stool" href="" coords="213,349,236,303,206,288,185,336" shape="poly">
+        <area target="" alt="Single Stool" title="Single Stool" href="" coords="160,343,188,304,165,281,137,326" shape="poly">
+        <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="248,299,228,345,255,349,276,312" shape="poly">
+        <area target="" alt="High Top For 2" title="High Top For 2" href="" coords="581,293,598,336,568,343,552,306" shape="poly">
+        <area target="" alt="VIP Bench For 2" title="VIP Bench For 2" href="" coords="443,710,451,734,482,722,472,698" shape="poly">
+        <area target="" alt="VIP Bench For 2" title="VIP Bench For 2" href="" coords="366,696,397,705,389,732,357,721" shape="poly">
+        <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="542,55,812,57,812,84,543,83" shape="poly">
+        <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="208,435,192,432,190,455,210,452" shape="poly">
+        <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="180,430,181,482,163,482,162,429" shape="poly">
+        <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="138,501,155,500,155,555,138,555" shape="poly">
+        <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="177,505,174,607,160,605,158,505" shape="poly">
+        <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="243,739,232,752,182,707,196,695" shape="poly">
+        <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="401,709,400,751,442,750,438,709" shape="poly">
+        <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="625,431,642,427,643,452,626,450" shape="poly">
+        <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="653,428,669,427,669,474,653,474" shape="poly">
+        <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="656,502,658,602,671,601,673,501" shape="poly">
+        <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="678,498,692,498,691,551,677,551" shape="poly">
+        <area target="" alt="Single Folding Chair" title="Single Folding Chair" href="" coords="638,690,591,733,603,747,652,705" shape="poly">
+    </map>
+  
+  <script>
+    // Toggle the entire content area (map and seat info)
+    document.getElementById('toggle-map-btn').addEventListener('click', function() {
+      var container = document.getElementById('content-container');
+      if (container.style.display === 'none' || container.style.display === '') {
+        container.style.display = 'flex';
+        this.textContent = 'Hide Seating Map';
+        console.log("Seating map content shown");
+      } else {
+        container.style.display = 'none';
+        this.textContent = 'Show Seating Map';
+        console.log("Seating map content hidden");
+      }
+    });
+    
+    // Initialize interactive seating map functionalities.
+    document.addEventListener("DOMContentLoaded", function() {
+      const seatingMap = document.getElementById("seating-map");
+      const highlightContainer = document.getElementById("highlight-container");
+      const areas = document.getElementsByTagName("area");
+      const seatInfo = document.getElementById("seat-info");
+      const svgNS = "http://www.w3.org/2000/svg";
+      
+      // Define seat type details for all seating types using SeatingDefault.jpg.
+      const seatTypeDetails = {
+        "High Top For 2": {
+          image: "SeatingDefault.jpg",
+          cost: "$20"
+        },
+        "High Top Table For 4": {
+          image: "SeatingDefault.jpg",
+          cost: "$50"
+        },
+        "Canopy Table For 4": {
+          image: "SeatingDefault.jpg",
+          cost: "$55"
+        },
+        "VIP Table For 4": {
+          image: "SeatingDefault.jpg",
+          cost: "$75"
+        },
+        "VIP High Top For 2": {
+          image: "SeatingDefault.jpg",
+          cost: "$30"
+        },
+        "VIP Bench For 2": {
+          image: "SeatingDefault.jpg",
+          cost: "$25"
+        },
+        "Garden Bench For 2": {
+          image: "SeatingDefault.jpg",
+          cost: "$20"
+        },
+        "Single Stool": {
+          image: "SeatingDefault.jpg",
+          cost: "$15"
+        },
+        "Single Folding Chair": {
+          image: "SeatingDefault.jpg",
+          cost: "$10"
+        }
+      };
+      
+      // Default seat info details when no seat is hovered.
+      const defaultDetails = {
+        image: "AerialTent.jpg",
+        text: "Seating Overview"
+      };
+      
+      // Function to update the seat info panel with given details.
+      function updateSeatInfo(details) {
+        seatInfo.innerHTML = '<img src="' + details.image + '" alt="Seat Image">' +
+                             '<strong>' + (details.text || '') + '</strong>' +
+                             (details.cost ? ' - ' + details.cost : '');
+      }
+      
+      // Set default info initially.
+      updateSeatInfo(defaultDetails);
+      
+      // Recalculate image map coordinates for responsiveness.
+      function recalcImageMap() {
+        const scale = seatingMap.clientWidth / seatingMap.naturalWidth;
+        Array.from(areas).forEach(area => {
+          if (!area.dataset.originalCoords) {
+            area.dataset.originalCoords = area.getAttribute("coords");
+          }
+          const originalCoords = area.dataset.originalCoords.split(",").map(Number);
+          const newCoords = originalCoords.map(coord => Math.round(coord * scale));
+          area.setAttribute("coords", newCoords.join(","));
+        });
+        console.log("Recalculated image map coordinates");
+      }
+      
+      seatingMap.addEventListener("load", recalcImageMap);
+      if (seatingMap.complete) {
+        recalcImageMap();
+      }
+      
+      // Clear SVG highlights and reset seat info to default.
+      function clearHighlights() {
+        highlightContainer.innerHTML = "";
+        updateSeatInfo(defaultDetails);
+        console.log("Cleared highlights and set default seat info");
+      }
+      
+      // Highlight all areas matching the seat type and update seat info.
+      function highlightAreas(seatType) {
+        clearHighlights();
+        console.log("Highlighting seat type: " + seatType);
+        const svg = document.createElementNS(svgNS, "svg");
+        svg.setAttribute("width", seatingMap.clientWidth);
+        svg.setAttribute("height", seatingMap.clientHeight);
+        svg.style.position = "absolute";
+        svg.style.top = 0;
+        svg.style.left = 0;
+        svg.style.pointerEvents = "none";
+        
+        Array.from(areas).forEach(area => {
+          if (area.getAttribute("title") === seatType) {
+            const coords = area.getAttribute("coords").split(",").map(Number);
+            let points = [];
+            for (let i = 0; i < coords.length; i += 2) {
+              points.push(coords[i] + "," + coords[i+1]);
+            }
+            const polygon = document.createElementNS(svgNS, "polygon");
+            polygon.setAttribute("points", points.join(" "));
+            polygon.setAttribute("fill", "rgba(255, 255, 0, 0.5)");
+            svg.appendChild(polygon);
+          }
+        });
+        highlightContainer.appendChild(svg);
+        
+        // Update the seat info panel with the seat type details if available.
+        if (seatTypeDetails[seatType]) {
+          const details = seatTypeDetails[seatType];
+          updateSeatInfo({
+            image: details.image,
+            text: seatType,
+            cost: details.cost
+          });
+        } else {
+          updateSeatInfo({ text: seatType });
+        }
+      }
+      
+      // Attach mouse events to each area.
+      Array.from(areas).forEach(area => {
+        area.addEventListener("mouseover", function() {
+          const seatType = this.getAttribute("title");
+          highlightAreas(seatType);
+          console.log("Mouseover event on area: " + seatType);
+        });
+        area.addEventListener("mouseout", function() {
+          clearHighlights();
+          console.log("Mouseout event on area: " + this.getAttribute("title"));
+        });
+      });
+      
+      window.addEventListener("resize", function() {
+        recalcImageMap();
+        clearHighlights();
+      });
+    });
+  </script>
+</body>
+</html>
