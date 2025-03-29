@@ -16,17 +16,6 @@
       text-align: center;
       margin-bottom: 20px;
     }
-    /* Toggle button styling */
-    #toggle-map-btn {
-      display: block;
-      margin: 0 auto 10px auto;
-      padding: 10px 15px;
-      background-color: #1e88e5;
-      color: #fff;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
     /* Flex container for map and seat info */
     .content-container {
       display: flex;
@@ -75,12 +64,15 @@
       display: block;
       margin: 0 auto 10px auto;
     }
+    #seat-info .subtext {
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 5px;
+    }
   </style>
 </head>
 <body>
   <h1>Interactive Seating Map</h1>
-  <!-- Toggle button to show/hide the entire content area -->
-  <button id="toggle-map-btn">Hide Seating Map</button>
   
   <!-- Content container for map and seat info -->
   <div class="content-container" id="content-container">
@@ -91,8 +83,9 @@
     </div>
     <div id="seat-info">
       <!-- Default seat info when no area is hovered -->
-      <img src="AerialTent.jpg" alt="Default Seating">
+      <img src="SeatingDefault.jpg" alt="Default Seating">
       <strong>Seating Overview</strong>
+      <div class="subtext">Hover Over Map for Details</div>
     </div>
   </div>
   
@@ -171,21 +164,6 @@
     </map>
   
   <script>
-    // Toggle the entire content area (map and seat info)
-    document.getElementById('toggle-map-btn').addEventListener('click', function() {
-      var container = document.getElementById('content-container');
-      if (container.style.display === 'none' || container.style.display === '') {
-        container.style.display = 'flex';
-        this.textContent = 'Hide Seating Map';
-        console.log("Seating map content shown");
-      } else {
-        container.style.display = 'none';
-        this.textContent = 'Show Seating Map';
-        console.log("Seating map content hidden");
-      }
-    });
-    
-    // Initialize interactive seating map functionalities.
     document.addEventListener("DOMContentLoaded", function() {
       const seatingMap = document.getElementById("seating-map");
       const highlightContainer = document.getElementById("highlight-container");
@@ -236,14 +214,16 @@
       // Default seat info details when no seat is hovered.
       const defaultDetails = {
         image: "AerialTent.jpg",
-        text: "Seating Overview"
+        text: "Seating Overview",
+        subtext: "(Hover Over Map for Details)"
       };
       
       // Function to update the seat info panel with given details.
       function updateSeatInfo(details) {
         seatInfo.innerHTML = '<img src="' + details.image + '" alt="Seat Image">' +
                              '<strong>' + (details.text || '') + '</strong>' +
-                             (details.cost ? ' - ' + details.cost : '');
+                             (details.cost ? ' - ' + details.cost : '') +
+                             (details.subtext ? '<div class="subtext">' + details.subtext + '</div>' : '');
       }
       
       // Set default info initially.
